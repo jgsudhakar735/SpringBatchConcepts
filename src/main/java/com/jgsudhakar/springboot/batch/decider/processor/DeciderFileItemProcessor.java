@@ -19,16 +19,16 @@ import org.springframework.stereotype.Component;
  **************************************/
 @Component
 @Log4j2
-public class DeciderFileItemProcessor extends ItemListenerSupport<EmpEntity, EmpEntity> implements ItemProcessor<EmpEntity, EmpEntity> {
+public class DeciderFileItemProcessor implements ItemProcessor<EmpEntity, EmpEntity> {
 
     private StepExecution stepExecution;
 
-    @BeforeStep
-    public void beforeStep(StepExecution stepExecution) {
-        log.info("File Processing Step Initialized");
-        this.stepExecution = stepExecution;
-        this.stepExecution.setExitStatus(new ExitStatus("QUITE"));
-    }
+//    @BeforeStep
+//    public void beforeStep(StepExecution stepExecution) {
+//        log.info("File Processing Step Initialized");
+//        this.stepExecution = stepExecution;
+//        this.stepExecution.setExitStatus(new ExitStatus("QUITE"));
+//    }
 
     /**
      * @param item
@@ -41,11 +41,11 @@ public class DeciderFileItemProcessor extends ItemListenerSupport<EmpEntity, Emp
         return item;
     }
 
-    @Override
-    public void afterProcess(EmpEntity item, EmpEntity result) {
-        super.afterProcess(item, result);
-        if(item.getFirstName().startsWith("S")){
-            stepExecution.setExitStatus(new ExitStatus("NOTIFY"));
-        }
-    }
+//    @Override
+//    public void afterProcess(EmpEntity item, EmpEntity result) {
+//        super.afterProcess(item, result);
+//        if(!item.getFirstName().startsWith("S")){
+//            stepExecution.setExitStatus(new ExitStatus("NOTIFY"));
+//        }
+//    }
 }

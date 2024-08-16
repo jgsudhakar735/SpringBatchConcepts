@@ -1,5 +1,8 @@
 package com.jgsudhakar.springboot.batch.decider.config;
 
+import com.jgsudhakar.springboot.batch.decider.step.NotifyQuiteStep;
+import com.jgsudhakar.springboot.batch.decider.step.NotifyStep;
+import com.jgsudhakar.springboot.batch.decider.condition.FlowDecider;
 import com.jgsudhakar.springboot.batch.decider.processor.DeciderFileItemProcessor;
 import com.jgsudhakar.springboot.batch.decider.reader.DeciderFileItemReader;
 import com.jgsudhakar.springboot.batch.decider.writer.DeciderFileItemWriter;
@@ -28,30 +31,53 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class DeciderJobConfig {
 
     @Autowired
-    private DeciderFileItemReader itemReader;
+    private DeciderFileItemReader deciderFileItemReader;
 
     @Autowired
-    private DeciderFileItemProcessor itemProcessor;
+    private DeciderFileItemProcessor deciderFileItemProcessor;
 
     @Autowired
-    private DeciderFileItemWriter itemWriter;
+    private DeciderFileItemWriter deciderFileItemWriter;
 
     @Bean
-    public Job chunkJob(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
-        return new JobBuilder("chunkJob",jobRepository).
-                start(processJobStep(jobRepository,platformTransactionManager,itemReader,
-                        itemProcessor,itemWriter)).
+    public Job deciderChunkJob(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager,
+                        Step notificationStep,Step notificationQuiteStep) {
+        Step step = processDecideJobStep(jobRepository,platformTransactionManager,deciderFileItemReader,
+                deciderFileItemProcessor,deciderFileItemWriter);
+        return new JobBuilder("deciderChunkJob",jobRepository).
+                start(step).
+                next(new FlowDecider()).
+                on(FlowDecider.NOTIFY).
+                to(notificationStep).
+                from(new FlowDecider()).
+                on("*").
+                to(notificationQuiteStep(jobRepository,platformTransactionManager)).
+                end().
                 build();
     }
 
     @Bean
-    public Step processJobStep(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager,
-                               ItemReader<EmpEntity> itemReader, ItemProcessor<EmpEntity,EmpEntity> itemProcessor,
-                               ItemWriter<EmpEntity> itemWriter) {
-                return new StepBuilder("processJobStep",jobRepository).<EmpEntity,EmpEntity>chunk(2,platformTransactionManager).
-                        reader(itemReader).
-                        processor(itemProcessor).
-                        writer(itemWriter).
+    public Step processDecideJobStep(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager,
+                               ItemReader<EmpEntity> deciderFileItemReader, ItemProcessor<EmpEntity,EmpEntity> deciderFileItemProcessor,
+                               ItemWriter<EmpEntity> deciderFileItemWriter) {
+                return new StepBuilder("processDecideJobStep",jobRepository).<EmpEntity,EmpEntity>chunk(2,platformTransactionManager).
+                        reader(deciderFileItemReader).
+                        processor(deciderFileItemProcessor).
+                        writer(deciderFileItemWriter).
                         build();
+    }
+
+    @Bean
+    public Step notificationStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+        return new StepBuilder("notificationStep", jobRepository)
+                .tasklet(new NotifyStep(), transactionManager)
+                .build();
+    }
+
+    @Bean
+    public Step notificationQuiteStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+        return new StepBuilder("notificationQuiteStep", jobRepository)
+                .tasklet(new NotifyQuiteStep(), transactionManager)
+                .build();
     }
 }
