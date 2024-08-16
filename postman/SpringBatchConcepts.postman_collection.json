@@ -52,6 +52,27 @@
 					"response": []
 				},
 				{
+					"name": "DeciderJob",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/sbbatch/api/decider",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"sbbatch",
+								"api",
+								"decider"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "SkipJob",
 					"request": {
 						"method": "GET",
