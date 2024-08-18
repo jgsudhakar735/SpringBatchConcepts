@@ -42,3 +42,5 @@ spring:
   batch:
     job:
       enabled: false
+filepath : "D:\\readfile\\1.txt"
+folderpath : "D:\\readfile"

@@ -1,0 +1,12 @@
+use sbbatch;
+SET SQL_SAFE_UPDATES = 0;
+delete from sbbatch.batch_step_execution_context where STEP_EXECUTION_ID > 0;
+delete from sbbatch.batch_step_execution where STEP_EXECUTION_ID > 0;
+delete from sbbatch.batch_job_execution_params where JOB_EXECUTION_ID > 0;
+delete from sbbatch.batch_job_execution_context where JOB_EXECUTION_ID > 0;
+delete from sbbatch.batch_job_execution_seq where UNIQUE_KEY > 1;
+delete from sbbatch.batch_job_execution where JOB_EXECUTION_ID > 0;
+delete from sbbatch.batch_job_instance where JOB_INSTANCE_ID > 0;
+delete from sbbatch.batch_step_execution_seq where ID > 0;
+delete from sbbatch.batch_job_seq where ID > 0;
+commit;
