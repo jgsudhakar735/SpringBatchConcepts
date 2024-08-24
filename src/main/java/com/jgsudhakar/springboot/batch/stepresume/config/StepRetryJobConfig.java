@@ -1,6 +1,7 @@
 package com.jgsudhakar.springboot.batch.stepresume.config;
 
 import com.jgsudhakar.springboot.batch.entity.EmpEntity;
+import com.jgsudhakar.springboot.batch.stepresume.decider.StepExecutionDecider;
 import com.jgsudhakar.springboot.batch.stepresume.step_1.processor.Step1FileItemProcessor;
 import com.jgsudhakar.springboot.batch.stepresume.step_1.reader.Step1FileItemReader;
 import com.jgsudhakar.springboot.batch.stepresume.step_1.writer.Step1FileItemWriter;
@@ -65,10 +66,14 @@ public class StepRetryJobConfig {
         return new JobBuilder("stepResumeJob",jobRepository).
                 start(step1(jobRepository,platformTransactionManager,step1FileItemReader,
                         step1FileItemProcessor,step1FileItemWriter)).
-                next(step2(jobRepository,platformTransactionManager,step2FileItemReader,
+                next(new StepExecutionDecider()).
+                on(StepExecutionDecider.NOTIFY).
+                to(step2(jobRepository,platformTransactionManager,step2FileItemReader,
                         step2FileItemProcessor,step2FileItemWriter)).
-                next(step3(jobRepository,platformTransactionManager,step3FileItemReader,
+                on(StepExecutionDecider.QUIET).
+                to(step3(jobRepository,platformTransactionManager,step3FileItemReader,
                         step3FileItemProcessor,step3FileItemWriter)).
+                end().
                 build();
     }
 

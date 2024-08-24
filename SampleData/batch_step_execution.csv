@@ -1,0 +1,31 @@
+STEP_EXECUTION_ID,VERSION,STEP_NAME,JOB_EXECUTION_ID,CREATE_TIME,START_TIME,END_TIME,STATUS,COMMIT_COUNT,READ_COUNT,FILTER_COUNT,WRITE_COUNT,READ_SKIP_COUNT,WRITE_SKIP_COUNT,PROCESS_SKIP_COUNT,ROLLBACK_COUNT,EXIT_CODE,EXIT_MESSAGE,LAST_UPDATED
+1,3,tasklet1,1,"2024-08-20 22:13:34.239058","2024-08-20 22:13:34.252564","2024-08-20 22:13:34.275774",COMPLETED,1,0,0,0,0,0,0,0,COMPLETED,,"2024-08-20 22:13:34.276941"
+2,3,tasklet2,1,"2024-08-20 22:13:34.294978","2024-08-20 22:13:34.308274","2024-08-20 22:13:34.343697",COMPLETED,1,0,0,0,0,0,0,0,COMPLETED,,"2024-08-20 22:13:34.344698"
+3,2,tasklet3,1,"2024-08-20 22:13:34.366348","2024-08-20 22:13:34.383450","2024-08-20 22:13:44.428160",FAILED,0,0,0,0,0,0,0,1,FAILED,"java.nio.file.NoSuchFileException: D:\readfile\1.txt
+	at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:85)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+	at java.base/sun.nio.fs.WindowsFileSystemProvider.newFileChannel(WindowsFileSystemProvider.java:121)
+	at java.base/java.nio.channels.FileChannel.open(FileChannel.java:298)
+	at java.base/java.nio.channels.FileChannel.open(FileChannel.java:357)
+	at java.base/java.nio.file.Files.lines(Files.java:4132)
+	at java.base/java.nio.file.Files.lines(Files.java:4227)
+	at com.jgsudhakar.springboot.batch.stepresume.tasklet.Tasklet3.execute(Tasklet3.java:36)
+	at org.springframework.batch.core.step.tasklet.TaskletStep$ChunkTransactionCallback.doInTransaction(TaskletStep.java:388)
+	at org.springframework.batch.core.step.tasklet.TaskletStep$ChunkTransactionCallback.doInTransaction(TaskletStep.java:312)
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:140)
+	at org.springframework.batch.core.step.tasklet.TaskletStep$2.doInChunkContext(TaskletStep.java:255)
+	at org.springframework.batch.core.scope.context.StepContextRepeatCallback.doInIteration(StepContextRepeatCallback.java:82)
+	at org.springframework.batch.repeat.support.RepeatTemplate.getNextResult(RepeatTemplate.java:369)
+	at org.springframework.batch.repeat.support.RepeatTemplate.executeInternal(RepeatTemplate.java:206)
+	at org.springframework.batch.repeat.support.RepeatTemplate.iterate(RepeatTemplate.java:140)
+	at org.springframework.batch.core.step.tasklet.TaskletStep.doExecute(TaskletStep.java:240)
+	at org.springframework.batch.core.step.AbstractStep.execute(AbstractStep.java:229)
+	at org.springframework.batch.core.job.SimpleStepHandler.handleStep(SimpleStepHandler.java:153)
+	at org.springframework.batch.core.job.AbstractJob.handleStep(AbstractJob.java:418)
+	at org.springframework.batch.core.job.SimpleJob.doExecute(SimpleJob.java:132)
+	at org.springframework.batch.core.job.AbstractJob.execute(AbstractJob.java:317)
+	at org.springframework.batch.core.launch.support.SimpleJobLauncher$1.run(SimpleJobLauncher.java:157)
+	at org.springframework.core.task.SyncTaskExecutor.execute(SyncTaskExecutor.java:50)
+	at org.springframework.batch.core.launch.support.SimpleJobLauncher.run(SimpleJobLauncher.java:148)
+	at org.springframework.batch.co","2024-08-20 22:13:44.429105"

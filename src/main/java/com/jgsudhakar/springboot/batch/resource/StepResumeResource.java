@@ -11,6 +11,7 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /*************************************
@@ -31,8 +32,8 @@ public class StepResumeResource {
     private Job stepResumeJob;
 
     @GetMapping("")
-    public String processTaskLet() {
-        JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis())
+    public String processTaskLet(@RequestParam("jobId") String jobId) {
+        JobParameters jobParameters = new JobParametersBuilder().addString("jobId", jobId)
                 .toJobParameters();
         try {
             jobLauncher.run(stepResumeJob,jobParameters);

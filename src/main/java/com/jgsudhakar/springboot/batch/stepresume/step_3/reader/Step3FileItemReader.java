@@ -1,10 +1,8 @@
 package com.jgsudhakar.springboot.batch.stepresume.step_3.reader;
 
 import com.jgsudhakar.springboot.batch.entity.EmpEntity;
-import com.jgsudhakar.springboot.batch.stepresume.util.StepResumeConstants;
 import com.jgsudhakar.springboot.batch.tasklet.utils.FileUtils;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
@@ -50,31 +48,7 @@ public class Step3FileItemReader implements ItemReader<EmpEntity>, StepExecution
 
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
-        String stepName = stepExecution.getStepName();
-        if(stepName.equalsIgnoreCase("processResumeJobStep")) {
-            if (null != fileUtils)
-                fileUtils.closeReader();
-            return ExitStatus.COMPLETED;
-        }else if(stepName.equalsIgnoreCase("processResumeOnFailureJobStep")) {
-            if (null != fileUtils)
-                fileUtils.closeReader();
-           if(StepResumeConstants.CALLED_STEP_3.equalsIgnoreCase(StringUtils.EMPTY)) {
-               StepResumeConstants.CALLED_STEP_3 =  StepResumeConstants.CALLED_STEP_3.equalsIgnoreCase( "YES")?StringUtils.EMPTY: "YES";
-               throw new RuntimeException("BATCH_JOB_STEP_FAILING");
-           }else {
-               StepResumeConstants.CALLED_STEP_3 =  StepResumeConstants.CALLED_STEP_3.equalsIgnoreCase( "YES")?StringUtils.EMPTY: "YES";
-               return ExitStatus.COMPLETED;
-           }
-        }else {
-            if (null != fileUtils)
-                fileUtils.closeReader();
-            if(StepResumeConstants.CALLED_STEP_3.equalsIgnoreCase(StringUtils.EMPTY)) {
-                StepResumeConstants.CALLED_STEP_3 =  StepResumeConstants.CALLED_STEP_3.equalsIgnoreCase( "YES")?StringUtils.EMPTY: "YES";
-                throw new RuntimeException("BATCH_JOB_STEP_FAILING"+stepName);
-            }else {
-                StepResumeConstants.CALLED_STEP_3 =  StepResumeConstants.CALLED_STEP_3.equalsIgnoreCase( "YES")?StringUtils.EMPTY: "YES";
-                return ExitStatus.COMPLETED;
-            }
-        }
+        log.info("Step3FileItemReader :: ");
+        return ExitStatus.COMPLETED;
     }
 }

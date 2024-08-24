@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/stepresume/tasklet")
 public class StepResumeTaskletResource {
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
     @Autowired
     JobLauncher jobLauncher;
 
@@ -31,7 +33,7 @@ public class StepResumeTaskletResource {
     @GetMapping("")
     public String handle(@RequestParam("jobId") String jobId) throws Exception {
 
-        Logger logger = LoggerFactory.getLogger(this.getClass());
+
         try {
             JobParameters jobParameters = new JobParametersBuilder().addString("jobId", jobId)
                     .toJobParameters();

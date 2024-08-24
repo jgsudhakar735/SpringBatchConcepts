@@ -49,6 +49,6 @@ public class Step1FileItemReader implements ItemReader<EmpEntity>, StepExecution
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
         log.info("Step1FileItemReader#afterStep");
-        return ExitStatus.COMPLETED;
+        return ExitStatus.FAILED;
     }
 }

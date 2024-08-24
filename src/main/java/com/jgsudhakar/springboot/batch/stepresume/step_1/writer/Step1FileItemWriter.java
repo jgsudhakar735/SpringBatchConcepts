@@ -40,6 +40,7 @@ public class Step1FileItemWriter implements ItemWriter<EmpEntity>, StepExecution
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
         log.info("Step1FileItemReader#afterStep");
-        return ExitStatus.COMPLETED;
+        throw new RuntimeException("JOB_FAILED");
+//        return ExitStatus.FAILED;
     }
 }
