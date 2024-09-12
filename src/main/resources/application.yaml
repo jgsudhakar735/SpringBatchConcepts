@@ -16,7 +16,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/sbbatch
     username: root
-    password: Sriyaan@735
+    password: 
     hikari:
       minimum-idle: 0
       maximum-pool-size: 10
