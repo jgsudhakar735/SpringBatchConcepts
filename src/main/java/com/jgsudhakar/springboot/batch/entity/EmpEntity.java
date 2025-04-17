@@ -1,5 +1,7 @@
 package com.jgsudhakar.springboot.batch.entity;
 
+import com.jgsudhakar.springboot.batch.bulk.dto.InputDataDto;
+import com.jgsudhakar.springboot.batch.constants.BatchConstants;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +23,17 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@SqlResultSetMapping(
+        name = BatchConstants.EMP_LIST_SQL_RESULT_SET,
+        classes = @ConstructorResult(
+                targetClass = InputDataDto.class,
+                columns = {
+                        @ColumnResult(name = "ID",type = Long.class),
+                        @ColumnResult(name = "FIRST_NAME"),
+                        @ColumnResult(name = "LAST_NAME")
+                }
+        )
+)
 public class EmpEntity implements Serializable {
 
     @Id

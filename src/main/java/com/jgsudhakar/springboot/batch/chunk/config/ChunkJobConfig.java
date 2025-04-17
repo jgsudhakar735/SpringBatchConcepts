@@ -13,6 +13,7 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -37,6 +38,7 @@ public class ChunkJobConfig {
     private FileItemWriter itemWriter;
 
     @Bean
+    @Qualifier("chunkJob")
     public Job chunkJob(JobRepository jobRepository, PlatformTransactionManager platformTransactionManager) {
         return new JobBuilder("chunkJob",jobRepository).
                 start(processJobStep(jobRepository,platformTransactionManager,itemReader,

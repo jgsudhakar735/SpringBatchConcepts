@@ -1,5 +1,7 @@
 package com.jgsudhakar.springboot.batch.resource;
 
+import com.jgsudhakar.springboot.batch.constants.BatchConstants;
+import lombok.AllArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -15,29 +17,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /*************************************
- * This Class is used to 
+ * This Class is used to
  * Author  : Sudhakar Tangellapalli
- * File    : com.jgsudhakar.springboot.batch.resource.PartitionResource
- * Date    : 16-08-2024
+ * File    : com.jgsudhakar.springboot.batch.resource.BulkDataProcessResource
+ * Date    : 17-04-2025
  * Version : 1.0
  **************************************/
 @RestController
-@RequestMapping("/api/partition")
-public class PartitionResource {
+@RequestMapping("/api/bulk")
+@AllArgsConstructor
+public class BulkDataProcessResource {
 
     @Autowired
     private JobLauncher jobLauncher;
 
     @Autowired
-    @Qualifier("partitionJob")
-    private Job partitionJob;
+    @Qualifier("bulkJob")
+    private Job bulkJob;
 
     @GetMapping("")
-    public String processTaskLet() {
-        JobParameters jobParameters = new JobParametersBuilder().addLong("time", System.currentTimeMillis())
+    public String processBulkDataFromDatabase() {
+        JobParameters jobParameters = new JobParametersBuilder().addString(BatchConstants.COR_ID, String.valueOf(System.currentTimeMillis()))
                 .toJobParameters();
         try {
-            jobLauncher.run(partitionJob,jobParameters);
+            jobLauncher.run(bulkJob,jobParameters);
         } catch (JobExecutionAlreadyRunningException e) {
             throw new RuntimeException(e);
         } catch (JobRestartException e) {

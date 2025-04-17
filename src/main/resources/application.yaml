@@ -1,13 +1,16 @@
 server:
   servlet:
-    context-path: /sbbatch
+    context-path: /sbevents
   port: 9090
 
 spring:
   application:
-    name: springboot
+    name: springboot-call-back
   flyway:
     enabled: false
+  batch:
+    job:
+      enabled: false
   main:
     banner-mode: console
     allow-bean-definition-overriding: true
@@ -16,7 +19,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/sbbatch
     username: root
-    password: Sriyaan@735
+    password: root
     hikari:
       minimum-idle: 0
       maximum-pool-size: 10
@@ -39,8 +42,3 @@ spring:
       ddl-auto: none
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-  batch:
-    job:
-      enabled: false
-filepath : "D:\\readfile\\1.txt"
-folderpath : "D:\\readfile"
