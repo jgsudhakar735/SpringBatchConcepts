@@ -5,16 +5,11 @@ import com.jgsudhakar.springboot.batch.fixedfile.dto.InputDataDto;
 import com.jgsudhakar.springboot.batch.fixedfile.dto.TrailerDto;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
-import org.springframework.batch.item.file.mapping.PatternMatchingCompositeLineMapper;
 import org.springframework.batch.item.file.transform.FixedLengthTokenizer;
-import org.springframework.batch.item.file.transform.LineTokenizer;
 import org.springframework.batch.item.file.transform.Range;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /*************************************
  * This Class is used to 
@@ -35,6 +30,7 @@ public class FixedFileBeanConfig {
     public FixedLengthTokenizer dataTokenizer() {
         FixedLengthTokenizer tokenizer = new FixedLengthTokenizer();
         tokenizer.setNames("recordType","firstName", "lastName", "village", "mandal","disctrict");
+        tokenizer.setStrict(false);
         tokenizer.setColumns(new Range(1, 1),
                 new Range(2, 6),
                 new Range(7, 30),
@@ -51,6 +47,7 @@ public class FixedFileBeanConfig {
     public FixedLengthTokenizer headerTokenizer() {
         FixedLengthTokenizer tokenizer = new FixedLengthTokenizer();
         tokenizer.setNames("recordType","headerData");
+        tokenizer.setStrict(false);
         tokenizer.setColumns(new Range(1,1),new Range(2, 50)); // Adjust the range as per your header length
         return tokenizer;
     }
@@ -59,6 +56,7 @@ public class FixedFileBeanConfig {
     public FixedLengthTokenizer trailerTokenizer() {
         FixedLengthTokenizer tokenizer = new FixedLengthTokenizer();
         tokenizer.setNames("recordType","trailerData");
+        tokenizer.setStrict(false);
         tokenizer.setColumns(new Range(1,1),new Range(2, 50)); // Adjust the range as per your footer length
         return tokenizer;
     }

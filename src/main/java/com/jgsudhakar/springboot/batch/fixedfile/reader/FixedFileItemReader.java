@@ -55,7 +55,7 @@ public class FixedFileItemReader extends AbstractFilePaginationReader<InputDataD
     @BeforeStep
     public void setParameters(StepExecution execution){
         log.info("Before Step method called in FixedFileItemReader");
-        super.setParameters(execution, "inputFile.txt", lineMapper());
+        super.setParameters(execution, "InputFile.txt", lineMapper());
     }
 
 

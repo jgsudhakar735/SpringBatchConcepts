@@ -51,6 +51,7 @@ public abstract class AbstractFilePaginationReader<T> extends AbstractPagination
 
         reader = new FlatFileItemReader<>();
         reader.setLineMapper(lineMapper());
+        reader.setStrict(false);
         reader.setResource(new FileSystemResource("resources/" + fileLocation ));
         reader.open(new ExecutionContext());
         startCount=0;
