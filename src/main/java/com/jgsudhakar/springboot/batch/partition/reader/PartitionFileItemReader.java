@@ -29,6 +29,12 @@ public class PartitionFileItemReader implements ItemReader<EmpEntity>, StepExecu
     public void beforeStep(StepExecution stepExecution) {
         fileUtils = new FileUtils("samplefile.csv");
         log.info("Initializing the File Path and Creating Object");
+        String  partitionName = stepExecution.getStepName();
+        Integer minValue = stepExecution.getExecutionContext().getInt("minValue");
+        Integer maxValue = stepExecution.getExecutionContext().getInt("maxValue");
+        log.info("Step / Partition Name {} ",partitionName);
+        log.info("Min Values {} ",minValue);
+        log.info("Max Values {} ",maxValue);
     }
 
     /**

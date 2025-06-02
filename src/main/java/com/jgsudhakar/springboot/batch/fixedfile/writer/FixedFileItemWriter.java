@@ -1,6 +1,6 @@
-package com.jgsudhakar.springboot.batch.bulk.writer;
+package com.jgsudhakar.springboot.batch.fixedfile.writer;
 
-import com.jgsudhakar.springboot.batch.bulk.dto.OutputDataDto;
+import com.jgsudhakar.springboot.batch.fixedfile.dto.OutputDataDto;
 import com.jgsudhakar.springboot.batch.constants.BatchConstants;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.batch.core.JobExecution;
@@ -14,13 +14,13 @@ import org.springframework.stereotype.Component;
 /*************************************
  * This Class is used to 
  * Author  : Sudhakar Tangellapalli
- * File    : com.jgsudhakar.springboot.batch.bulk.writer.FixedFileItemWriter
+ * File    : com.jgsudhakar.springboot.batch.fixedfile.writer.FixedFileItemWriter
  * Date    : 17-04-2025
  * Version : 1.0
  **************************************/
 @Component
 @Log4j2
-public class BulkItemWriter implements ItemWriter<OutputDataDto> {
+public class FixedFileItemWriter implements ItemWriter<OutputDataDto> {
 
     @BeforeStep
     public void setParameters(StepExecution execution){

@@ -1,4 +1,4 @@
-package com.jgsudhakar.springboot.batch.bulk.reader;
+package com.jgsudhakar.springboot.batch.fixedfile.reader;
 
 import lombok.Getter;
 import lombok.Setter;

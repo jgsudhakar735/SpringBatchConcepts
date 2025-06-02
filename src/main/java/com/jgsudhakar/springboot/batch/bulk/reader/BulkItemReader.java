@@ -18,7 +18,7 @@ import java.util.List;
 /*************************************
  * This Class is used to 
  * Author  : Sudhakar Tangellapalli
- * File    : com.jgsudhakar.springboot.batch.bulk.reader.BulkItemReader
+ * File    : com.jgsudhakar.springboot.batch.bulk.reader.FixedFileItemReader
  * Date    : 17-04-2025
  * Version : 1.0
  **************************************/
