@@ -22,16 +22,20 @@ import org.springframework.stereotype.Component;
 @Log4j2
 public class FixedFileItemWriter implements ItemWriter<OutputDataDto> {
 
+    private int totalRecords = 0;
+
     @BeforeStep
     public void setParameters(StepExecution execution){
         JobExecution jobExecution = execution.getJobExecution();
         String corId = jobExecution.getJobParameters().getString(BatchConstants.COR_ID);
+        totalRecords= 0;
         log.info("Correlation ID: {}", corId);
     }
 
     @Override
     public void write(Chunk<? extends OutputDataDto> chunk) throws Exception {
         log.info("Writing chunk of size: {}", chunk.size());
+        totalRecords = totalRecords + chunk.size();
         for (OutputDataDto item : chunk) {
             log.info("Writing item: {}", item);
             // Here you can write the item to the database or any other destination
@@ -42,6 +46,6 @@ public class FixedFileItemWriter implements ItemWriter<OutputDataDto> {
 
     @AfterStep
     public void afterStep(){
-        log.info("Item Writer After Step");
+        log.info("Item Writer After Step Total Records :: {}",totalRecords);
     }
 }

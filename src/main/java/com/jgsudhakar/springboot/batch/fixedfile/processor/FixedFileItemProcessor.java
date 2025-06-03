@@ -24,6 +24,7 @@ public class FixedFileItemProcessor implements ItemProcessor<InputDataDto, Outpu
      */
     @Override
     public OutputDataDto process(InputDataDto item) throws Exception {
+        log.info("FixedFileItemProcessor process method called with item:");
         log.info("Processing item: {}", item);
         OutputDataDto outputDataDto = new OutputDataDto();
         outputDataDto.setFirstName(item.getFirstName());

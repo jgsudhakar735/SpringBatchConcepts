@@ -33,10 +33,10 @@ public class FixedFileBeanConfig {
         tokenizer.setStrict(false);
         tokenizer.setColumns(new Range(1, 1),
                 new Range(2, 6),
-                new Range(7, 30),
-                new Range(21, 31),
-                new Range(32, 40),
-                new Range(41, 48)
+                new Range(7, 19),
+                new Range(20, 29),
+                new Range(30, 38),
+                new Range(39, 46)
         );
 
         return tokenizer;
